@@ -142,8 +142,9 @@ export default function CodePage (){
                                     <ReactMarkdown
                                         components={{
                                         pre: ({ node, ...props }) => (
-                                            <div className="overflow-auto w-full mt-2 bg-black text-white p-2 m-5 rounded-lg">
-                                            <pre {...props} />
+                                            <div key={index} className="overflow-auto w-full mt-2 bg-black text-white p-2 m-5 rounded-lg flex justify-between items-start pr-9 ">
+                                                <pre {...props} />
+                                                <button onClick={() => {navigator.clipboard.writeText(props.children.props.children)}}>Copy</button>
                                             </div>
                                         ),
                                         code: ({ node, ...props }) => (
