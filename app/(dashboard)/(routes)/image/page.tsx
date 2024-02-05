@@ -39,10 +39,12 @@ import { cn } from "@/lib/utils";
 import { UserAvatar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
 import { Images } from "openai/resources/images.mjs";
+import { useProModal } from "@/app/hooks/use-pro-modal";
 
 export default function ImagePage(){
     
     const router = useRouter();
+    const proModal = useProModal();
     const [images, setImages] = useState<string[]>([])
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -75,6 +77,9 @@ export default function ImagePage(){
         } catch (error: any) {
     
           // TODO: Open Pro Modal
+          if (error?.response?.status === 403){
+            proModal.onOpen();
+        }
           console.log(error);
     
         } finally {
@@ -208,7 +213,6 @@ export default function ImagePage(){
                         <Empty label="No images generated."/>
                     )} 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:gird-cols-4 gap-4 mt-8">
-                        {console.log(images)}
                         {images.map((url, index) => (
                         <Card key={index} className="rounded-lg overflow-hidden">
                             <div className="relative aspect-square">

@@ -25,9 +25,11 @@ import { useState } from "react";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
+import { useProModal } from "@/app/hooks/use-pro-modal";
 
 export default function MusicPage(){
     
+    const proModal = useProModal();
     const router = useRouter();
     const [music, setMusic] = useState<string>();
 
@@ -55,6 +57,9 @@ export default function MusicPage(){
         } catch (error:any) {
             // todo: open pro modal
             console.log(error);
+            if (error?.response?.status === 403){
+                proModal.onOpen();
+            }
         }finally{
             router.refresh();
         }
