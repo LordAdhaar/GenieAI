@@ -4,7 +4,7 @@
 import * as z from "zod"
 
 import Heading from "@/components/heading";
-import { Divide, MessageSquare, Music } from "lucide-react";
+import { Divide, MessageSquare, Music, Video, VideoIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -22,14 +22,13 @@ import { Form,
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
 
-export default function MusicPage(){
+export default function VideoPage(){
     
     const router = useRouter();
-    const [music, setMusic] = useState<string>();
+    const [video, setVideo] = useState<string>();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver:zodResolver(formSchema),
@@ -42,11 +41,11 @@ export default function MusicPage(){
 
     const onSubmit = async (values:z.infer<typeof formSchema>) => {
         try {
-            setMusic(undefined);
+            setVideo(undefined);
 
-            const response = await axios.post("/api/music",values)
+            const response = await axios.post("/api/video",values)
 
-            setMusic(response.data.audio)
+            setVideo(response.data[0])
 
             form.reset();
 
@@ -63,11 +62,11 @@ export default function MusicPage(){
     return(
         <div>
             <Heading 
-            title ="Music Generation"
-            description="Make music in seconds"
-            icon={Music}
-            iconColor="text-emerald-500"
-            bgColor="bg-emerald-500/10"/>
+            title ="Video Generation"
+            description="Text to video in seconds"
+            icon={Video}
+            iconColor="text-orange-700"
+            bgColor="bg-orange-700/10"/>
             <div className="px-4 lg:px-8">
                 <div>
                     <Form {...form}>
@@ -98,7 +97,7 @@ export default function MusicPage(){
                                                 focus-visible:ring-transparent"
                                                 
                                                 disabled={isLoading}
-                                                placeholder="Piana solo"
+                                                placeholder="Yeti in the himalayas"
 
                                                 {...field}
                                                 />
@@ -120,13 +119,13 @@ export default function MusicPage(){
                             <Loader/>
                         </div>
                     )}
-                    {!music && !isLoading && (
-                        <Empty label="No music generated"/>
+                    {!video && !isLoading && (
+                        <Empty label="No video generated"/>
                     )} 
-                {music && (
-                    <audio controls className="w-full mt-8">
-                        <source src={music}/>
-                    </audio>
+                {video && (
+                    <video controls className="w-full mt-8 aspect-video rounded-lg border bg-black">
+                        <source src={video} />
+                    </video>
                 )}
                 </div>
             </div>
