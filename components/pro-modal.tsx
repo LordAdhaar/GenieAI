@@ -6,7 +6,8 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-    DialogFooter
+    DialogFooter,
+    DialogClose
   } from "@/components/ui/dialog"
   
 import { Badge } from "@/components/ui/badge"
@@ -72,22 +73,24 @@ export default function ProModal(){
                         {tools.map((tool) => (
                             <Card 
                             key={tool.label}
-                            className="p-3 border-black/5 flex items-center justify-between"
+                            className="p-3 border-black/5 flex justify-between items-center "
                             >
-                                <div className="flex items-center gap-x-4">
+                                <div className="flex items-center gap-x-4 ">
                                     <div className={cn("p-2 w-fit rounded-md",tool.bgColor)}>
                                         <tool.icon className={cn("w-6 h-6", tool.color)}/>
                                     </div>
                                     <div className="font-semibold text-sm">
                                         {tool.label}
                                     </div>
-                                    <Check className="text-primary w-5 h-5"/>
                                 </div>
+                                <Check className="text-primary w-5 h-5"/>
+
 
                             </Card>
                         ))}
                     </DialogDescription>
                 </DialogHeader>
+                <DialogClose/>
                 <DialogFooter>
                     <Button
                         size="lg"
