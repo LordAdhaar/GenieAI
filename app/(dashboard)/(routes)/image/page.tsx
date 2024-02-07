@@ -40,6 +40,7 @@ import { UserAvatar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
 import { Images } from "openai/resources/images.mjs";
 import { useProModal } from "@/app/hooks/use-pro-modal";
+import toast from "react-hot-toast";
 
 export default function ImagePage(){
     
@@ -79,7 +80,11 @@ export default function ImagePage(){
           // TODO: Open Pro Modal
           if (error?.response?.status === 403){
             proModal.onOpen();
+          }
+          else{
+            toast.error("Something went wrong")
         }
+        
           console.log(error);
     
         } finally {

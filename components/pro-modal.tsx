@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 import axios from "axios";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 
 const tools = [
@@ -67,7 +68,7 @@ export default function ProModal(){
             window.location.href = response.data.url;
             setLoading(true)
         } catch (error) {
-            console.log(error,"stripe client erroe")
+            toast.error("Something went wrong")
         }finally{
             setLoading(false)
         }
@@ -108,6 +109,7 @@ export default function ProModal(){
                 <DialogClose/>
                 <DialogFooter>
                     <Button
+                    disabled={loading}
                         onClick={onSubscribe}
                         size="lg"
                         variant="premium"
