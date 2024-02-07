@@ -17,6 +17,8 @@ import { ArrowRight, Code, ImageIcon, MessageSquare, Music, VideoIcon, Zap } fro
 import { Card } from "./ui/card";
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
+import axios from "axios";
+import { useState } from "react";
 
 
 const tools = [
@@ -57,6 +59,19 @@ const tools = [
 export default function ProModal(){
 
     const proModal = useProModal();
+    const [loading, setLoading] = useState(false);
+
+    const onSubscribe = async () => {
+        try {
+            const response = await axios.get("/api/stripe");
+            window.location.href = response.data.url;
+            setLoading(true)
+        } catch (error) {
+            console.log(error,"stripe client erroe")
+        }finally{
+            setLoading(false)
+        }
+    }
 
 
     return (
@@ -93,6 +108,7 @@ export default function ProModal(){
                 <DialogClose/>
                 <DialogFooter>
                     <Button
+                        onClick={onSubscribe}
                         size="lg"
                         variant="premium"
                         className="w-full"

@@ -17,10 +17,11 @@ import { useProModal } from "@/app/hooks/use-pro-modal";
 
 interface FreeCounterProps{
     apiLimitCount:number;
+    isPro:boolean
 }
 
 export default function FreeCounter({
-    apiLimitCount=0
+    apiLimitCount = 0, isPro = false
 }:FreeCounterProps){
 
     const proModal = useProModal();
@@ -32,6 +33,10 @@ export default function FreeCounter({
 
     if (!mounted){
         return null;
+    }
+
+    if(isPro){
+        return null
     }
 
     return(
