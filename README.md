@@ -1,6 +1,6 @@
 # GenieAI
 
-GenieAI is a versatile SaaS project that harnesses the power of OpenAI to generate various types of content including images, videos, music, code, and text-based content.<br/>
+GenieAI is a versatile SaaS project that harnesses the power of OpenAI API and Replicate API to generate various types of content including images, videos, music, code, and text-based content.<br/>
 Built using Next.js, Tailwind CSS, Clerk for authentication, Supabase, Prisma, and ShadCN
 
 ## Live Website
